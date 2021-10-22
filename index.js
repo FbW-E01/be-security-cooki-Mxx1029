@@ -8,27 +8,30 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-const hashes = [];
 
 async function hash(input) {
     return await bcrypt.hash(''+input, 10); // make input a string, 10 salt rounds
 }
 
+const hashes = [];
 app.post('/token', async (req, res) => {
     const { randomNum } = req.body;
     const currentDate = Date.now();
     const hashed = await hash(randomNum);
-    // console.log(hashed);
-    hashes.push({ hash: hashed, createdAt: currentDate });
-    // console.log(hashes)
+    console.log(hashed);
+    const hashObj = { hash: hashed, createdAt: currentDate };
+    hashes.push(hashObj);
+    console.log(hashes)
     res.cookie("token", hashed);
-    res.send("ok");
+    // res.send("ok");
+    res.json({ success: "ok", hashObj });
 })
 
+const messages = [];
 app.post('/message', (req, res) => {
     const { message } = req.body;
     const cookies = req.cookies;
-    // console.log("Cookies token: ", cookies.token);
+    console.log("Cookies token: ", cookies.token);
     if (!cookies.token) {
         return res.sendStatus(400);
     }
@@ -45,6 +48,8 @@ app.post('/message', (req, res) => {
     if (tooOld) {
         return res.sendStatus(400);
     }
+    messages.push(message);
+    console.log(messages);
     res.send("thanks for the message");
 })
 

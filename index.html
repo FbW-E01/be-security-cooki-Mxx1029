@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooki try out</title>
+</head>
+<body>
+    <h2>Try this cooki</h2>
+    <div id="main"></div>
+    <script>
+        window.onload = e => {
+            const url = "http://localhost:3489/token";
+            const num = Math.round(Math.random() * 9999999);
+            const data = { randomNum: num };
+            const init = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            };
+            fetch(url, init)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result);
+                    document.cookie = `token=${result.hashObj.hash}`;
+                })
+                .catch(err => console.log("Error while fetching token ", err))
+        };
+        const main = document.querySelector("#main");
+        const messageInput = document.createElement("input");
+        messageInput.type = "text";
+        messageInput.placeholder = "your message here...";
+        let newMessage = "";
+        messageInput.addEventListener('change', (e) => {
+            newMessage = e.target.value;
+            return newMessage;
+        })
+        main.appendChild(messageInput);
+        const sendButton = document.createElement("button");
+        sendButton.innerHTML = "Send message";
+        sendButton.addEventListener('click', (e) => {
+            const url = "http://localhost:3489/message";
+            const data = { message: newMessage };
+            const init = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            };
+
+            // So far the cookie is set in the browser, but the checking doesn't work, gonna do more research (but for now i have another 5 tasks to finish)
+
+            fetch(url, init)
+                .then(response => response.text())
+                .then(result => {
+                    console.log(result);
+                })
+                .catch(err => console.log("Error while sending message ", err))
+        })
+        main.appendChild(sendButton);
+    </script>
+</body>
+</html>
