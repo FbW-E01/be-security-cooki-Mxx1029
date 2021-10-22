@@ -31,6 +31,7 @@ const messages = [];
 app.post('/message', (req, res) => {
     const { message } = req.body;
     const cookies = req.cookies;
+    console.log(cookies);
     console.log("Cookies token: ", cookies.token);
     if (!cookies.token) {
         return res.sendStatus(400);

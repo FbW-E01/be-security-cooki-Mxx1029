@@ -48,12 +48,18 @@
                 body: JSON.stringify(data)
             };
 
-            // So far the cookie is set in the browser, but the checking doesn't work, gonna do more research (but for now i have another 5 tasks to finish)
+            // So far the cookie is set in the browser, but the checking doesn't work, gonna do more research (but for now i have another 5 tasks to finish) 
+            // res.cookie and req.cookie doesn't work as we are not using React and routes... so the path on client side will be localhost:port/index.html instead of localhost:port/token whch would set the cookie in the browser
+            // probably i need to a getCookie function and send it with the data in the fetch in index.html
+            // https://www.tabnine.com/academy/javascript/how-to-set-cookies-javascript/
 
             fetch(url, init)
                 .then(response => response.text())
                 .then(result => {
                     console.log(result);
+                    // const getCookie = (name) => {
+
+                    // };
                 })
                 .catch(err => console.log("Error while sending message ", err))
         })
