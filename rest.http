@@ -1,0 +1,15 @@
+POST http://localhost:3489/token
+Content-Type: application/json
+
+{
+    "randomNum": 5676363
+}
+
+###
+
+POST http://localhost:3489/message
+Content-Type: application/json
+
+{
+    "message": "hi hello salut"
+}

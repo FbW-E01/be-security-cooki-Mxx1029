@@ -1,0 +1,19 @@
+{
+  "name": "be-security-cooki-mxx1029",
+  "version": "1.0.0",
+  "description": "First create an API with two endpoints:",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}
